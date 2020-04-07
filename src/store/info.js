@@ -23,11 +23,29 @@ export default {
                     .val();
                 commit('setInfo', info);
             } catch(e) {
-                console.log(e);
+                commit('serError', e);
+                throw e;
             }
-
-
+        },
+        async updateInfo({dispatch, commit, getters}, toUpdate) {
+            try {
+                const uid = await dispatch('getUid');
+                //собираем весь объект info, со всеми полями
+                //и обновляем поля из toUpdate
+                const updateData = {...getters.info, ...toUpdate};
+                //т.к. для изменения нужно передать в бд объект со всеми полями
+                //даже если некоторые не менялись
+                await firebase.database()
+                    .ref(`/users/${uid}/info`)
+                    .update(updateData);
+                //меняем информацию в хранилище
+                commit('setInfo', updateData);
+            } catch(e) {
+                commit('serError', e);
+                throw e;
+            }
         }
+
     },
     getters: {
         info: state => state.info

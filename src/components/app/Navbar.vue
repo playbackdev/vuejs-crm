@@ -67,7 +67,6 @@
            });
         },
         beforeDestroy() {
-            console.log('before destroy');
             clearInterval(this.interval);
             if(this.dropdown && this.dropdown.destroy) {
                 this.dropdown.destroy();
