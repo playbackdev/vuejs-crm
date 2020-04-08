@@ -23,6 +23,7 @@
 <script>
     import Navbar from '@/components/app/Navbar';
     import Sidebar from '@/components/app/Sidebar';
+    import messages from '@/utils/messages'
 
     export default {
         name: "MainLayout",
@@ -30,6 +31,20 @@
             sidebarIsOpen: true,
             loading: true
         }),
+        computed: {
+            error() {
+                //получаем ошибку по геттеру vuex со стейтом error
+                return this.$store.getters.error;
+            }
+        },
+        watch: {
+            //отслеживаем изменение ошибки
+            error(firebaseError) {
+                console.log(firebaseError);
+                //выводить сообщение ошибки по коду через модуль utils/message.plugin.js
+                this.$error(messages[firebaseError.code] || 'Что-то пошло не так');
+            }
+        },
         //html дерево к моменту mounted готово, можно делать асинхронные запросы
         async mounted() {
             //если нет информации о пользователе (длина массива ключей = 0 объекта info в сторе)

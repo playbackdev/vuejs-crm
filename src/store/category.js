@@ -22,6 +22,28 @@ export default {
             }
 
         },
+        async fetchCategoryById({commit, dispatch}, id) {
+            try {
+                const uid = await dispatch('getUid');
+                const category = (await firebase.database()
+                    .ref(`/users/${uid}/categories`)
+                    //возвращаем из всего массива одну категорию по id
+                    .child(id)
+                    //once возвращает объект с функцией val
+                    .once('value'))
+                //возвращаем массив категорий либо пустой объект
+                    .val() || {};
+                //firebase возвращает уникальный id записи
+                return {
+                    ...category,
+                    id: id
+                };
+            } catch(e) {
+                commit('setError', e);
+                throw e;
+            }
+
+        },
         async createCategory({commit, dispatch}, {title, limit}) {
             try {
                 const uid = await dispatch('getUid');

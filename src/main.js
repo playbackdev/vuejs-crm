@@ -3,6 +3,7 @@ import Vuelidate from 'vuelidate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Paginate from 'vuejs-paginate'
 import firebaseConfig from './firebase.config'
 import dateFilter from '@/filters/date.filter'
 import currencyFilter from '@/filters/currency.filter'
@@ -25,6 +26,8 @@ Vue.filter('currency', currencyFilter);
 Vue.directive('tooltip', tooltipDirective);
 
 Vue.component('Loader', Loader);
+
+Vue.component('Paginate', Paginate);
 
 firebase.initializeApp(firebaseConfig);
 

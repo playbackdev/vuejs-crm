@@ -35,6 +35,28 @@ export default {
                 throw e;
             }
 
+        },
+        async fetchRecordById({dispatch, commit}, id) {
+            try {
+                const uid = await dispatch('getUid');
+                const record = (await firebase.database()
+                    .ref(`/users/${uid}/records`)
+                    //получаем из всего массива нужный элемент по id
+                    .child(id)
+                    //once возвращает объект с функцией val
+                    .once('value'))
+                //возвращаем массив категорий либо пустой объект
+                    .val() || {};
+
+                return {
+                    ...record,
+                    id: id
+                };
+            } catch(e) {
+                commit('setError', e);
+                throw e;
+            }
+
         }
     }
 }
