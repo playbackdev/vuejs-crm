@@ -6,6 +6,7 @@
 
 <script>
     import messages from '@/utils/messages'
+    import localizeFilter from "../filters/localize.filter";
 
     export default {
         name: "EmptyLayout",
@@ -20,7 +21,8 @@
             error(firebaseError) {
                 console.log(firebaseError);
                 //выводить сообщение ошибки по коду через модуль utils/message.plugin.js
-                this.$error(messages[firebaseError.code] || 'Что-то пошло не так');
+                this.$error(messages[firebaseError.code] ? localizeFilter(messages[firebaseError.code]) :
+                localizeFilter('SmthGoesWrong'));
             }
         }
     }

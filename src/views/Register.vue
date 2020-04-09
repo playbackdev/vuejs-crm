@@ -1,7 +1,7 @@
 <template>
     <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content">
-            <span class="card-title">Регистрация</span>
+            <span class="card-title">{{'Register'|localize}}</span>
             <div class="input-field">
                 <input v-model.trim="email"
                        :class="{invalid: ($v.email.$dirty && !$v.email.required) ||
@@ -12,10 +12,10 @@
                 <label for="email">Email</label>
                 <small class="helper-text invalid"
                        v-if="$v.email.$dirty && !$v.email.required"
-                >Введите Email</small>
+                >{{'EnterEmail'|localize}}</small>
                 <small class="helper-text invalid"
                        v-else-if="$v.email.$dirty && !$v.email.email"
-                >Введите корректный Email</small>
+                >{{'EnterCorrectEmail'|localize}}</small>
             </div>
             <div class="input-field">
                 <input v-model.trim="password"
@@ -24,13 +24,14 @@
                        id="password"
                        type="password"
                 >
-                <label for="password">Пароль</label>
+                <label for="password">{{'Password'|localize}}</label>
                 <small class="helper-text invalid"
                        v-if="$v.password.$dirty && !$v.password.required"
-                >Введите пароль</small>
+                >{{'EnterPassword'|localize}}</small>
                 <small class="helper-text invalid"
                        v-else-if="$v.password.$dirty && !$v.password.minLength"
-                >Пароль должен быть длиннее {{$v.password.$params.minLength.min}} символов</small>
+                >{{'PasswordLengthMustBe'|localize}} {{$v.password.$params.minLength.min}}
+                    {{'Symbols'|localize}}</small>
             </div>
             <div class="input-field">
                 <input v-model.trim="name"
@@ -38,15 +39,15 @@
                         id="name"
                         type="text"
                 >
-                <label for="name">Имя</label>
+                <label for="name">{{'Name'|localize}}</label>
                 <small class="helper-text invalid"
                        v-if="$v.name.$dirty && !$v.name.required"
-                >Поле имя не должно быть пустым</small>
+                >{{'EmptyName'|localize}}</small>
             </div>
             <p>
                 <label>
                     <input type="checkbox" v-model="agreeRules" />
-                    <span>С правилами согласен</span>
+                    <span>{{'AgreeRules'|localize}}</span>
                 </label>
             </p>
         </div>
@@ -56,14 +57,14 @@
                         class="btn waves-effect waves-light auth-submit"
                         type="submit"
                 >
-                    Зарегистрироваться
+                    {{'toRegister'|localize}}
                     <i class="material-icons right">send</i>
                 </button>
             </div>
 
             <p class="center">
-                Уже есть аккаунт?
-                <router-link to="/login">Войти!</router-link>
+                {{'HaveAccount'|localize}}
+                <router-link to="/login">{{'Login'|localize}}</router-link>
             </p>
         </div>
     </form>
@@ -74,6 +75,11 @@
 
     export default {
         name: "Register",
+        metaInfo() {
+            return {
+                title: this.$title('Register')
+            }
+        },
         data: () => ({
             email: '',
             password: '',

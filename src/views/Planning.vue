@@ -1,22 +1,22 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>Планирование</h3>
+            <h3>{{'PlanningTitle'|localize}}</h3>
             <h4>{{info.bill | currency('RUB')}}</h4>
         </div>
 
         <Loader v-if="loading"/>
         <p class="center"
            v-else-if="!categories.length"
-        >Категорий пока нет. <router-link to="/categories">Добавить новую категорию</router-link>
+        >{{'NoCategoriesMessage'|localize}}<router-link to="/categories">{{'AddCategory'|localize}}</router-link>
         </p>
         <section v-else>
             <div v-for="cat of categories" :key="cat.id">
                 <p>
                     <strong>{{cat.title}}</strong>
-                    {{cat.spend | currency('RUB')}} из {{cat.limit | currency('RUB')}}
+                    {{cat.spend | currency('RUB')}} {{'of'|localize}} {{cat.limit | currency('RUB')}}
                 </p>
-                <div class="progress" v-tooltip="cat.tooltip">
+                <div class="progress" v-tooltip.noloc="cat.tooltip">
                     <div
                             class="determinate"
                             :class="[cat.progressColor]"
@@ -31,6 +31,7 @@
 <script>
     import {mapGetters} from 'vuex';
     import currencyFilter from '@/filters/currency.filter';
+    import localizeFilter from "../filters/localize.filter";
 
     export default {
         name: "Planning",
@@ -38,6 +39,11 @@
            loading: true,
            categories: []
         }),
+        metaInfo() {
+            return {
+                title: this.$title('Sidebar_Planning')
+            }
+        },
         computed: {
             ...mapGetters(['info'])
         },
@@ -66,7 +72,7 @@
                     : percent < 100 ? 'yellow'
                         : 'red';
                 const tooltipValue = cat.limit - spend;
-                const tooltip = `${tooltipValue < 0 ? 'Превышение на' : 'Осталось'}
+                const tooltip = `${tooltipValue < 0 ? localizeFilter('exceed') : localizeFilter('remain')}
                                 ${currencyFilter(Math.abs(tooltipValue))}`;
 
                 //возвращаем итоговый переработанный объект категории

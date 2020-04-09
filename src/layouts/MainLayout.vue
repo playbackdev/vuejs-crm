@@ -4,7 +4,9 @@
 
         <Navbar @click-toggle-sidebar="sidebarIsOpen = !sidebarIsOpen" />
 
-        <Sidebar :sidebarIsOpen="sidebarIsOpen"/>
+        <!--Используем :key=locale для того чтобы при изменении locale
+         наш сайдбар перерисовывался и содержимое меняло язык соответственно-->
+        <Sidebar :sidebarIsOpen="sidebarIsOpen" :key="locale"/>
 
         <main class="app-content" :class="{full: !sidebarIsOpen}">
             <div class="app-page">
@@ -13,7 +15,7 @@
         </main>
 
         <div class="fixed-action-btn">
-            <router-link to="/record" v-tooltip="'Создать новую запись'" class="btn-floating btn-large blue">
+            <router-link to="/record" v-tooltip="'AddRecord'" class="btn-floating btn-large blue">
                 <i class="large material-icons">add</i>
             </router-link>
         </div>
@@ -35,6 +37,9 @@
             error() {
                 //получаем ошибку по геттеру vuex со стейтом error
                 return this.$store.getters.error;
+            },
+            locale() {
+                return this.$store.getters.info.locale;
             }
         },
         watch: {
@@ -47,8 +52,8 @@
         },
         //html дерево к моменту mounted готово, можно делать асинхронные запросы
         async mounted() {
-            //если нет информации о пользователе (длина массива ключей = 0 объекта info в сторе)
-            if(!Object.keys(this.$store.getters.info).length) {
+            //если нет информации о пользователе (bill и name) (т.к. locale остается)
+            if (!this.$store.getters.info.bill || !this.$store.getters.info.name) {
                 //асинхронно получаем данные о пользователе
                 await this.$store.dispatch('fetchInfo');
             }

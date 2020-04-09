@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>Категории</h3>
+            <h3>{{'Sidebar_Categories'|localize}}</h3>
         </div>
         <section>
             <Loader v-if="loading" />
@@ -21,7 +21,7 @@
                     :key="categories.length + updateCount"
                     @updated="updateCategories"
                 />
-                <p v-else class="center">Категорий пока нет</p>
+                <p v-else class="center">{{'NoCategoriesMessage'|localize}}</p>
 
             </div>
         </section>
@@ -40,6 +40,11 @@
             loading: true,
             updateCount: 0
         }),
+        metaInfo() {
+            return {
+                title: this.$title('Sidebar_Categories')
+            }
+        },
         async mounted() {
             this.categories = await this.$store.dispatch('fetchCategories');
             this.loading = false;

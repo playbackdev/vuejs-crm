@@ -9,11 +9,13 @@ export default {
             state.info = info;
         },
         clearInfo(state) {
-            state.info = {};
+            state.info = {
+                locale: state.info.locale
+            };
         }
     },
     actions: {
-        //получаем даннык о пользователе по id из базы firebase
+        //получаем данные о пользователе по id из базы firebase
         async fetchInfo({dispatch, commit}) {
             try {
                 const uid = await dispatch('getUid');

@@ -1,31 +1,32 @@
 <template>
     <div>
         <div class="page-title">
-            <h3>История записей</h3>
+            <h3>{{'History_PageTitle'|localize}}</h3>
         </div>
 
-        <div class="history-chart">
-            <canvas ref="canvas"></canvas>
-        </div>
 
         <Loader v-if="loading" />
         <p class="center" v-else-if="!records.length">
-            Записей пока нет
-            <router-link to="/record">Добавить запись</router-link>
+            {{'NoRecordsMessage'|localize}}
+            <router-link to="/record">{{'AddRecord'|localize}}</router-link>
         </p>
         <section v-else>
+            <div class="history-chart">
+                <canvas ref="canvas"></canvas>
+            </div>
             <HistoryTable :records="items" :page="page" :pageSize="pageSize"/>
+            <Paginate class="center"
+                      v-model="page"
+                      :page-count="pageCount"
+                      :click-handler="pageChangeHandler"
+                      :prev-text="'Prev'|localize"
+                      :next-text="'Next'|localize"
+                      :container-class="'pagination'"
+                      :page-class="'waves-effect'"
+            />
         </section>
 
-        <Paginate class="center"
-                  v-model="page"
-                :page-count="pageCount"
-                :click-handler="pageChangeHandler"
-                :prev-text="'Назад'"
-                :next-text="'Вперед'"
-                :container-class="'pagination'"
-                :page-class="'waves-effect'"
-        />
+
     </div>
 </template>
 
@@ -42,6 +43,11 @@
             loading: true,
             records: []
         }),
+        metaInfo() {
+            return {
+                title: this.$title('Sidebar_History')
+            }
+        },
         methods: {
             async setup() {
                 this.records = await this.$store.dispatch('fetchRecords');
@@ -54,7 +60,7 @@
                             .find(c => c.id === record.categoryId)
                             .title,
                         typeClass: record.type === 'income' ? 'green' : 'red',
-                        typeText: record.type === 'income' ? 'Доход' : 'Расход',
+                        typeText: record.type,
                     }
                 }));
 

@@ -1,7 +1,7 @@
 <template>
       <div>
         <div class="page-title">
-          <h3>Счет</h3>
+          <h3>{{"Sidebar_Bill"|localize}}</h3>
 
           <button class="btn waves-effect waves-light btn-small" @click="refresh">
             <i class="material-icons">refresh</i>
@@ -36,6 +36,11 @@
       loading: true,
       currency: null
     }),
+    metaInfo() {
+      return {
+        title: this.$title('Sidebar_Bill')
+      }
+    },
     async mounted() {
       this.currency = await this.$store.dispatch('fetchCurrency');
       this.loading = false;

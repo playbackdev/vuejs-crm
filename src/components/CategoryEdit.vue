@@ -2,7 +2,7 @@
     <div class="col s12 m6">
         <div>
             <div class="page-subtitle">
-                <h4>Редактировать</h4>
+                <h4>{{'EditCategory'|localize}}</h4>
             </div>
 
             <form @submit.prevent="submitHandler">
@@ -14,17 +14,17 @@
                                 :value="c.id"
                         >{{c.title}}</option>
                     </select>
-                    <label>Выберите категорию</label>
+                    <label>{{'ChooseCategory'|localize}}</label>
                 </div>
 
                 <div class="input-field">
                     <input v-model="title"
                            :class="{invalid: $v.title.$dirty && !$v.title.required}"
                            type="text" id="name">
-                    <label for="name">Название</label>
+                    <label for="name">{{'CategoryName'|localize}}</label>
                     <span v-if="$v.title.$dirty && !$v.title.required"
                           class="helper-text invalid"
-                    >Введите название категории</span>
+                    >{{'Validate_EnterCatName'|localize}}</span>
                 </div>
 
                 <div class="input-field">
@@ -33,14 +33,14 @@
                             id="limit"
                             type="number"
                     >
-                    <label for="limit">Лимит</label>
+                    <label for="limit">{{'Limit'|localize}}</label>
                     <span v-if="$v.limit.$dirty && !$v.limit.minValue"
                           class="helper-text invalid"
-                    >Минимальная величина - {{$v.limit.$params.minValue.min}} рублей</span>
+                    >{{'Validate_MinValue'|localize}} - {{$v.limit.$params.minValue.min}}</span>
                 </div>
 
                 <button class="btn waves-effect waves-light" type="submit">
-                    Обновить
+                    {{'Update'|localize}}
                     <i class="material-icons right">send</i>
                 </button>
             </form>

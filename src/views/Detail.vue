@@ -3,9 +3,9 @@
     <div v-else-if="record">
         <div>
             <div class="breadcrumb-wrap">
-                <router-link to="/history" class="breadcrumb">История</router-link>
+                <router-link to="/history" class="breadcrumb">{{'Sidebar_History'|localize}}</router-link>
                 <a class="breadcrumb">
-                    {{record.type === 'income' ? 'Доход' : 'Расход'}}
+                    {{record.type|localize}}
                 </a>
             </div>
             <div class="row">
@@ -15,9 +15,9 @@
                                 'green': record.type === 'income'}
                     ">
                         <div class="card-content white-text">
-                            <p>Описание: {{record.description}}</p>
-                            <p>Сумма: {{record.amount | currency('RUB')}}</p>
-                            <p>Категория: {{record.categoryName}}</p>
+                            <p>{{'Description'|localize}}: {{record.description}}</p>
+                            <p>{{'Amount'|localize}}: {{record.amount | currency('RUB')}}</p>
+                            <p>{{'Category'|localize}}: {{record.categoryName}}</p>
 
                             <small>{{record.date | date('datetime')}}</small>
                         </div>
@@ -32,6 +32,11 @@
 <script>
     export default {
         name: 'Detail',
+        metaInfo() {
+            return {
+                title: this.$title('Record')
+            }
+        },
         data: () => ({
             record: null,
             loading: true
