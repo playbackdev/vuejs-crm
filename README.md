@@ -1,5 +1,9 @@
 # vuejs-crm
 
+## Deployed example here:
+
+https://vuejs-crm-1.web.app/
+
 ## Project setup
 ```
 npm install
