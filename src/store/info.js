@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 
 export default {
     state: {
-        info: {}
+        info: { locale: "ru-RU"}
     },
     mutations: {
         setInfo(state, info) {

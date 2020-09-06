@@ -53,6 +53,7 @@
   "Symbols": "characters",
   "PasswordLengthMustBe": "Password length must be more than",
   "DontHaveAccount": "Don't have an account yet? ",
+  "UseTestUser": "Or use test account:",
   "EmptyName": "Enter name",
   "AgreeRules": "I'm agree rules",
   "HaveAccount": "Have an account?",

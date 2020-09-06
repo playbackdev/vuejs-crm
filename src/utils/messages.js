@@ -3,5 +3,5 @@ export default {
     'logout': 'LogoutMessage',
     'auth/user-not-found': 'EmailNotFound',
     'auth/wrong-password': 'WrongPassword',
-    'auth/email-already-in-use':'EmailAlreadyInUse'
+    'auth/email-already-in-use': 'EmailAlreadyInUse'
 }

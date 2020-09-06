@@ -53,6 +53,7 @@
   "Symbols": "символов",
   "PasswordLengthMustBe": "Длина пароля должна быть длиннее",
   "DontHaveAccount": "Нет аккаунта? ",
+  "UseTestUser": "Или используйте тестовый аккаунт:",
   "EmptyName": "Введите имя",
   "AgreeRules": "С условиями согласен",
   "HaveAccount": "Уже есть аккаунт?",

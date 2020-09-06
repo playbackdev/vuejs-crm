@@ -49,6 +49,13 @@
                 {{'DontHaveAccount'|localize}}
                 <router-link to="/register">{{'toRegister'|localize}}</router-link>
             </p>
+            <p class="center">
+                {{'UseTestUser'|localize}}
+                <ul>
+                    <li>Login: test@test.ru</li>
+                    <li>Password: test123</li>
+                </ul>
+            </p>
         </div>
     </form>
 </template>
